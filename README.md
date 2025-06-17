@@ -13,7 +13,7 @@ This project demonstrates how to build a simple web application using the [Poké
 
 - HTML5
 - CSS3
-- JavaScript (Vanilla)
+- JavaScript
 - PokéAPI
 
 

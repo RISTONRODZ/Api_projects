@@ -25,7 +25,8 @@ This project demonstrates how to build a simple web application using the [Poké
 
 ## 📸 Demo
 
-![App Screenshot](screenshot.png)
+![App Screenshot](pikachu.png)
+![App Screenshot](charizard.png)
 
 ## 🧠 What You’ll Learn
 

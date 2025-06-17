@@ -16,5 +16,30 @@ This project demonstrates how to build a simple web application using the [Poké
 - JavaScript (Vanilla)
 - PokéAPI
 
-## 📁 Project Structure
+
+## 🔍 How It Works
+
+1. User enters a Pokémon name 
+2. JavaScript fetches data from the PokéAPI.
+3. DOM is updated dynamically to show Pokémon details.
+
+## 📸 Demo
+
+![App Screenshot](screenshot.png)
+
+## 🧠 What You’ll Learn
+
+- How to make API calls using `fetch()`
+- DOM manipulation using `querySelector`, `innerHTML`, etc.
+- Basic error handling
+- Styling with Flexbox/Grid
+
+## 📦 Installation
+
+Clone the repo and open `index.html` in your browser:
+
+```bash
+git clone https://github.com/RISTONRODZ/Api_projects.git
+cd Api_projects
+
 

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(115deg, #ffffff, #d4dfed);
+        }
+
+        .container {
+            width: 175px;
+            height: 245px;
+            background-color: #fefefe;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            height: 100%;
+        }
+
+        .circle {
+            width: 114%;
+            height: 50%;
+            border-radius: 50%;
+            background-color: #ee9629;
+            position: absolute;
+            left: 50%;
+            top: 10%;
+            transform: translate(-50%, -50%)
+        }
+
+        .image img {
+            z-index: 1;
+            position: absolute;
+            width: 130px;
+            height: 150px;
+        }
+
+        .hp {
+            background-color: #fffdff;
+            width: 43px;
+            height: 22px;
+            top: 5px;
+            right: 5px;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image {
+            display: flex;
+            justify-content: center;
+        }
+
+        .hp span {
+            font-size: 8px;
+        }
+
+        .name {
+            position: absolute;
+            z-index: 1;
+            top: 58%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            letter-spacing: 0.5px;
+        }
+
+        .type {
+            position: absolute;
+            z-index: 1;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            background-color: #ee9629;
+            border-radius: 10px;
+            width: 52px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .stats {
+            position: absolute;
+            z-index: 1;
+            bottom: 5px;
+            left: 19%;
+            display: flex;
+            gap: 15px;
+        }
+
+        .stats p:nth-child(2) {
+            position: relative;
+            left: -8px;
+            top: 1px;
+            font-size: 12px;
+        }
+
+        .input {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            top: 25%;
+            gap: 10px;
+        }
+
+        .input #input {
+            padding: 10px;
+            border-radius: 50px;
+            border: none;
+        }
+
+        .input button {
+            border-radius: 20px;
+            width: 55px;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="input">
+        <input type="text" placeholder="enter pokemon name" id="input">
+        <button onclick="fetchData()">
+            click
+        </button>
+    </div>
+    <div class="main">
+
+    </div>
+    <script>
+        function createCards(hp, image, name, type, attack, defense, speed) {
+            clutter = `<div class="container">
+            <div class="hp">
+                <h6><span>HP </span>${hp}</h6>
+            </div>
+            <div class="circle">
+
+            </div>
+            <div class="image">
+                <img src="${image}" alt="" srcset="">
+            </div>
+            <div class="name">
+                <h4>${name}</h4>
+            </div>
+            <div class="type">
+                <p>${type}</p>
+            </div>
+            <div class="stats">
+                <div class="attack">
+                    <p>${attack}</p>
+                    <p>attack</p>
+                </div>
+                <div class="defense">
+                    <p>${defense}</p>
+                    <p>defense</p>
+                </div>
+                <div class="speed">
+                    <p>${speed}</p>
+                    <p>speed</p>
+                </div>
+            </div>
+        </div>`
+            document.querySelector(".main").innerHTML = clutter
+        }
+
+        async function fetchData() {
+            try {
+                let name = document.querySelector("#input").value.toLowerCase()
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+                if (response.status == 404) {
+                    throw new Error("Pokemon not found");
+                }
+                if (!response.ok) {
+                    throw new Error("Something went wrong");
+                }
+                const json_response = await response.json()
+                console.log(json_response);
+
+                const image_url = json_response.sprites.front_default;
+                const hp = json_response.stats[0].base_stat;
+                const attack = json_response.stats[1].base_stat;
+                const defense = json_response.stats[2].base_stat;
+                const speed = json_response.stats[5].base_stat;
+                const type = json_response.types[0].type.name;
+                createCards(hp, image_url, name, type, attack, defense, speed);
+
+            } catch (error) {
+                alert(error)
+            }
+        }
+    </script>
+</body>
+
+</html>
